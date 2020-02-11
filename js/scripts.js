@@ -11,10 +11,8 @@ function fetchData(url) {
   }
   
 fetchData('https://randomuser.me/api/?results=12&nat=us')
-    .then(data => {
-        generateCard(data)
-        modalClickHandler(data)
-    })
+    .then(data => generateCard(data))
+    .then(data => modalClickHandler(data))
     
     
 
