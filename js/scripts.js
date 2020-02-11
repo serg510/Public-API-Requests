@@ -1,5 +1,5 @@
 const card = document.querySelector('.card');
-
+const gallery = document.getElementById('gallery')
 // ------------------------------------------
 //  FETCH FUNCTIONS
 // -----------------------------------------
@@ -11,7 +11,10 @@ function fetchData(url) {
   }
   
 fetchData('https://randomuser.me/api/?results=12&nat=us')
-    .then(data => generateCard(data))
+    .then(data => {
+        generateCard(data)
+        modalClickHandler(data)
+    })
     
     
 
@@ -38,17 +41,29 @@ function generateCard(data){
 </div>`}).join('');
 gallery.innerHTML = html;
 //console.log(data)
+
+}
+function modalClickHandler(data){
+    const cards = document.querySelectorAll('.cards');
+
+    for(let i =0; i< cards.length; i++){
+       cards[i].addEventListener('click', () => {
+
+        gallery.append(generateModal(data,i))
+       }) 
+    }
 }
 
-function generateModal(data,i){
-    let modal ;
 
-      modal =  `<div class="modal-container">
+function generateModal(data,i){
+    
+
+     return  `<div class="modal-container">
         <div class="modal">
             <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
             <div class="modal-info-container">
-                <img class="modal-img" src="https://placehold.it/125x125" alt="profile picture">
-                <h3 id="name" class="modal-name cap">name</h3>
+                <img class="modal-img" src="${data[i].picture.large}" alt="profile picture">
+                <h3 id="name" class="modal-name cap">${data[i].name}</h3>
                 <p class="modal-text">email</p>
                 <p class="modal-text cap">city</p>
                 <hr>
@@ -59,9 +74,15 @@ function generateModal(data,i){
         </div>
 
     `
+    
 }
 
 // ------------------------------------------
 //  EVENT LISTENERS
 // ------------------------------------------
+
+// document.addEventListener('click', (e) => {
+//     console.log(e.target)
+// })
+
 
