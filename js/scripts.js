@@ -1,6 +1,6 @@
 
 const gallery = document.getElementById('gallery');
-const body = document.querySelector('body');
+const body = document.getElementsByTagName('body')[0];
 // ------------------------------------------
 //  FETCH FUNCTIONS
 // -----------------------------------------
