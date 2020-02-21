@@ -30,7 +30,7 @@ fetchData('https://randomuser.me/api/?results=12&nat=us')
 
 function generateCard(data){
     let employees = data;
-    const html= employees.map( (data,index) => {
+    const html= employees.map( (data) => {
 
     return `<div class="card">
     <div class="card-img-container">
@@ -40,7 +40,7 @@ function generateCard(data){
         <h3 id="name" class="card-name cap">${data.name.last}, ${data.name.first}</h3>
         <p class="card-text">${data.email}</p>
         <p class="card-text cap">${data.location.city}, ${data.location.state}</p>
-        <p>${index}</p>
+        
     </div>
 </div>`}).join('');
 gallery.innerHTML = html;
