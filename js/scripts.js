@@ -69,7 +69,7 @@ function generateModal(data,i){
     return modal;
     
 }
-console.log('modal')
+
 //console.log(modalClickHandler)
 // ------------------------------------------
 //  EVENT LISTENERS
