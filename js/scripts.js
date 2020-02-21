@@ -1,9 +1,10 @@
-const card = document.querySelector('.card');
+
 const gallery = document.getElementById('gallery');
 const body = document.querySelector('body');
 // ------------------------------------------
 //  FETCH FUNCTIONS
 // -----------------------------------------
+// one fetch-function for multiple fetches
 function fetchData(url) {
     return fetch(url)
           //  .then(checkStatus)
@@ -12,8 +13,12 @@ function fetchData(url) {
   }
   
 fetchData('https://randomuser.me/api/?results=12&nat=us')
-    .then(data => generateCard(data))
-    .then(data => modalClickHandler(data))
+    .then(data => {
+        generateCard(data.results);
+        modalClickHandler(data.results);
+    })
+    
+    
     
     
 
@@ -24,17 +29,17 @@ fetchData('https://randomuser.me/api/?results=12&nat=us')
 // ------------------------------------------
 
 function generateCard(data){
-    let employees = data.results;
-    const html= employees.map( (person,index) => {
+    let employees = data;
+    const html= employees.map( (data,index) => {
 
     return `<div class="card">
     <div class="card-img-container">
-        <img class="card-img" src="${person.picture.large}" alt="profile picture">
+        <img class="card-img" src="${data.picture.large}" alt="profile picture">
     </div>
     <div class="card-info-container">
-        <h3 id="name" class="card-name cap">${person.name.last}, ${person.name.first}</h3>
-        <p class="card-text">${person.email}</p>
-        <p class="card-text cap">${person.location.city}, ${person.location.state}</p>
+        <h3 id="name" class="card-name cap">${data.name.last}, ${data.name.first}</h3>
+        <p class="card-text">${data.email}</p>
+        <p class="card-text cap">${data.location.city}, ${data.location.state}</p>
         <p>${index}</p>
     </div>
 </div>`}).join('');
@@ -43,45 +48,42 @@ gallery.innerHTML = html;
 
 }
 function generateModal(data,i){
-    let employee = data.results;
-    let html = employee.map( (person) => {
-     return  `
+    let  modal =  `
+     <div class="modal-container">
         <div class="modal">
             <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
             <div class="modal-info-container">
-                <img class="modal-img" src="${person[i].picture.large}" alt="profile picture">
-                <h3 id="name" class="modal-name cap">${person[i].name}</h3>
-                <p class="modal-text">${person[i].email}</p>
-                <p class="modal-text cap">${person[i].location.city}</p>
+                <img class="modal-img" src="${data[i].picture.large}" alt="profile picture">
+                <h3 id="name" class="modal-name cap">${data[i].name}</h3>
+                <p class="modal-text">${data[i].email}</p>
+                <p class="modal-text cap">${data[i].location.city}</p>
                 <hr>
-                <p class="modal-text">${person[i].phone}</p>
-                <p class="modal-text">${person[i].location.street}</p>
-                <p class="modal-text">Birthday:${person[i].dob}</p>
-            </div>one
-    `});
-    document.createElement('DIV').classList.add("modal-container");
-    document.querySelector(".modal-container").innerHTML = html;
+                <p class="modal-text">${data[i].phone}</p>
+                <p class="modal-text">${data[i].location.street}</p>
+                <p class="modal-text">Birthday:${data[i].dob}</p>
+            </div>
+        </div>
+    </div>
+    `;
+    
+    return modal;
+    
 }
+console.log('modal')
 //console.log(modalClickHandler)
 // ------------------------------------------
 //  EVENT LISTENERS
 // ------------------------------------------
 
-// document.addEventListener('click', (e) => {
-//     console.log(e.target)
-// })
-
 function modalClickHandler(data){
-    
-    const modal = document.querySelector(".modal-container");
-    const cards = document.querySelectorAll('.card');
+     const cards = document.querySelectorAll('.card');
     
     for(let i =0; i< cards.length; i++){
          cards[i].addEventListener('click', () => {
             
-             //console.log(e.currentTarget)
+            //console.log(e.currentTarget)
             //document.querySelector("body")
-            gallery.appendChild(modal)
+            body.appendChild(generateModal(data,i))
        }) 
     }
 }
