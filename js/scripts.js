@@ -42,41 +42,27 @@ gallery.innerHTML = html;
 //console.log(data)
 
 }
-function modalClickHandler(data){
-    const cards = document.querySelectorAll('.cards');
-    document.createElement('div').classList.add("modal-container");
-
-    for(let i =0; i< cards.length; i++){
-       card[i].addEventListener('click', () => {
-
-        body.appendChild(generateModal(data,i))
-       }) 
-    }
-}
-
-
 function generateModal(data,i){
-    let employees = data.results;
-    let html;
+    let employee = data.results;
+    let html = employee.map( (person) => {
      return  `
         <div class="modal">
             <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
             <div class="modal-info-container">
-                <img class="modal-img" src="${employees[i].picture.large}" alt="profile picture">
-                <h3 id="name" class="modal-name cap">${employees[i].name}</h3>
-                <p class="modal-text">email</p>
-                <p class="modal-text cap">city</p>
+                <img class="modal-img" src="${person[i].picture.large}" alt="profile picture">
+                <h3 id="name" class="modal-name cap">${person[i].name}</h3>
+                <p class="modal-text">${person[i].email}</p>
+                <p class="modal-text cap">${person[i].location.city}</p>
                 <hr>
-                <p class="modal-text">(555) 555-5555</p>
-                <p class="modal-text">123 Portland Ave., Portland, OR 97204</p>
-                <p class="modal-text">Birthday: 10/21/2015</p>
-            </div>
-        
-
-    `;
-    
+                <p class="modal-text">${person[i].phone}</p>
+                <p class="modal-text">${person[i].location.street}</p>
+                <p class="modal-text">Birthday:${person[i].dob}</p>
+            </div>one
+    `});
+    document.createElement('DIV').classList.add("modal-container");
+    document.querySelector(".modal-container").innerHTML = html;
 }
-//console.log(generateModal)
+//console.log(modalClickHandler)
 // ------------------------------------------
 //  EVENT LISTENERS
 // ------------------------------------------
@@ -84,5 +70,21 @@ function generateModal(data,i){
 // document.addEventListener('click', (e) => {
 //     console.log(e.target)
 // })
+
+function modalClickHandler(data){
+    
+    const modal = document.querySelector(".modal-container");
+    const cards = document.querySelectorAll('.card');
+    
+    for(let i =0; i< cards.length; i++){
+         cards[i].addEventListener('click', () => {
+            
+             //console.log(e.currentTarget)
+            //document.querySelector("body")
+            gallery.appendChild(modal)
+       }) 
+    }
+}
+
 
 
