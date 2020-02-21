@@ -1,5 +1,6 @@
 const card = document.querySelector('.card');
-const gallery = document.getElementById('gallery')
+const gallery = document.getElementById('gallery');
+const body = document.querySelector('body');
 // ------------------------------------------
 //  FETCH FUNCTIONS
 // -----------------------------------------
@@ -43,25 +44,26 @@ gallery.innerHTML = html;
 }
 function modalClickHandler(data){
     const cards = document.querySelectorAll('.cards');
+    document.createElement('div').classList.add("modal-container");
 
     for(let i =0; i< cards.length; i++){
-       cards[i].addEventListener('click', () => {
+       card[i].addEventListener('click', () => {
 
-        gallery.append(generateModal(data,i))
+        body.appendChild(generateModal(data,i))
        }) 
     }
 }
 
 
 function generateModal(data,i){
-    
-
-     return  `<div class="modal-container">
+    let employees = data.results;
+    let html;
+     return  `
         <div class="modal">
             <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
             <div class="modal-info-container">
-                <img class="modal-img" src="${data[i].picture.large}" alt="profile picture">
-                <h3 id="name" class="modal-name cap">${data[i].name}</h3>
+                <img class="modal-img" src="${employees[i].picture.large}" alt="profile picture">
+                <h3 id="name" class="modal-name cap">${employees[i].name}</h3>
                 <p class="modal-text">email</p>
                 <p class="modal-text cap">city</p>
                 <hr>
@@ -69,12 +71,12 @@ function generateModal(data,i){
                 <p class="modal-text">123 Portland Ave., Portland, OR 97204</p>
                 <p class="modal-text">Birthday: 10/21/2015</p>
             </div>
-        </div>
+        
 
-    `
+    `;
     
 }
-
+//console.log(generateModal)
 // ------------------------------------------
 //  EVENT LISTENERS
 // ------------------------------------------
