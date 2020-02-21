@@ -49,7 +49,7 @@ gallery.innerHTML = html;
 }
 function generateModal(data,i){
     let  modal =  `
-     <div class="modal-container">
+     
         <div class="modal">
             <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
             <div class="modal-info-container">
@@ -63,9 +63,10 @@ function generateModal(data,i){
                 <p class="modal-text">Birthday:${data[i].dob}</p>
             </div>
         </div>
-    </div>
-    `;
     
+    `;
+    document.createElement('div').setAttribute('class','modal-container');
+    document.getElementsByClassName('modal-container').innerHTML = modal;
     return modal;
     
 }
