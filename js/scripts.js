@@ -48,30 +48,33 @@ gallery.innerHTML = html;
 
 }
 function generateModal(data,i){
-    let  modal =  `
+    const modal = document.createElement('div');
+    modal.setAttribute('class','modal-container');
+    modal.innerHTML =  `
      
         <div class="modal">
             <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
             <div class="modal-info-container">
                 <img class="modal-img" src="${data[i].picture.large}" alt="profile picture">
-                <h3 id="name" class="modal-name cap">${data[i].name}</h3>
+                <h3 id="name" class="modal-name cap">${data[i].name.last}, ${data[i].name.first}</h3>
                 <p class="modal-text">${data[i].email}</p>
                 <p class="modal-text cap">${data[i].location.city}</p>
                 <hr>
                 <p class="modal-text">${data[i].phone}</p>
-                <p class="modal-text">${data[i].location.street}</p>
-                <p class="modal-text">Birthday:${data[i].dob}</p>
+                <p class="modal-text">${data[i].location.street.number} ${data[i].location.street.name} , ${data[i].location.state} , ${data[i].location.postcode}</p>
+                <p class="modal-text">Birthday: ${data[i].dob.date.substr(5,2)}-${data[i].dob.date.substr(8,2)}-${data[i].dob.date.substr(0,4)}
+                </p>
             </div>
         </div>
     
     `;
-    document.createElement('div').setAttribute('class','modal-container');
-    document.getElementsByClassName('modal-container').innerHTML = modal;
+    
     return modal;
     
 }
 
-//console.log(modalClickHandler)
+
+
 // ------------------------------------------
 //  EVENT LISTENERS
 // ------------------------------------------
@@ -81,13 +84,24 @@ function modalClickHandler(data){
     
     for(let i =0; i< cards.length; i++){
          cards[i].addEventListener('click', () => {
-            
-            //console.log(e.currentTarget)
-            //document.querySelector("body")
             body.appendChild(generateModal(data,i))
        }) 
     }
+    
+}
+
+function closeModalButton(){
+ 
+    closeBtn.addEventListener('click', () => {
+        alert('its working')
+        closeModal.remove();
+       
+    })
 }
 
 
 
+const closeModal = document.getElementById('modal-container');
+const closeBtn = document.getElementById("modal-close-btn");
+
+console.log(closeModal)
