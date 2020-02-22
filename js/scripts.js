@@ -91,17 +91,22 @@ function modalClickHandler(data){
 }
 
 function closeModalButton(){
- 
-    closeBtn.addEventListener('click', () => {
-        alert('its working')
+    const closeModal = document.getElementById('modal-container');
+    const closeBtn = document.getElementById("modal-close-btn");
+
+    body.addEventListener('click', (e) => {
+       if(e.target.classList.contains('modal-close-btn')){
+        console.log('hello')
         closeModal.remove();
+       }
+        
+       
+        
        
     })
 }
 
 
 
-const closeModal = document.getElementById('modal-container');
-const closeBtn = document.getElementById("modal-close-btn");
 
-console.log(closeModal)
+
