@@ -1,6 +1,6 @@
 
 const gallery = document.getElementById('gallery');
-const body = document.getElementsByTagName('body')[0];
+
 // ------------------------------------------
 //  FETCH FUNCTIONS
 // -----------------------------------------
@@ -90,23 +90,26 @@ function modalClickHandler(data){
     
 }
 
-function closeModalButton(){
-    const closeModal = document.getElementById('modal-container');
-    const closeBtn = document.getElementById("modal-close-btn");
+const modalContainer = document.getElementsByClassName('modal-container')[0];
+const closeBtn = document.getElementById("modal-close-btn");
 
-    body.addEventListener('click', (e) => {
-       if(e.target.classList.contains('modal-close-btn')){
-        console.log('hello')
-        closeModal.remove();
-       }
-        
-       
-        
-       
-    })
+//can also listen if generateModal function has been loaded
+//listen for close click
+if(closeBtn){
+closeBtn.addEventListener('click',closeModal);
+}
+//listen for outside click
+//window.addEventListener('click',clickOutside)
+
+function closeModal(){
+    modalContainer.remove();
+    //modalContainer.style.display = 'none';
 }
 
-
-
-
-
+// //function to close modal if outside click
+// function clickOutside(e){
+//     if(e.target == modalContainer){
+//         modalContainer.remove();
+//         //modalContainer.style.display = 'none';
+//     }
+// }
