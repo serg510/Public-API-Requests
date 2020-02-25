@@ -1,5 +1,6 @@
 
 const gallery = document.getElementById('gallery');
+const body = document.getElementsByTagName('body')[0];
 
 // ------------------------------------------
 //  FETCH FUNCTIONS
@@ -11,8 +12,8 @@ function fetchData(url) {
             .then(res => res.json() )
           //  .catch(error => console.log('Looks like there was a problem', error))
   }
-  
-fetchData('https://randomuser.me/api/?results=12&nat=us')
+  //currently not working'https://randomuser.me/api/?results=12&nat=us'
+fetchData('https://fsjs-public-api-backup.herokuapp.com/api')
     .then(data => {
         generateCard(data.results);
         modalClickHandler(data.results);
@@ -95,14 +96,15 @@ const closeBtn = document.getElementById("modal-close-btn");
 
 //can also listen if generateModal function has been loaded
 //listen for close click
-if(closeBtn){
+
 closeBtn.addEventListener('click',closeModal);
-}
+
 //listen for outside click
 //window.addEventListener('click',clickOutside)
 
 function closeModal(){
     modalContainer.remove();
+    console.log('click')
     //modalContainer.style.display = 'none';
 }
 
