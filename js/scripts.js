@@ -87,7 +87,7 @@ function modalClickHandler(data){
          cards[i].addEventListener('click', () => {
             body.appendChild(generateModal(data,i))
             closeModal();
-            clickOutside();
+            
        }) 
     }
     
@@ -101,7 +101,7 @@ function modalClickHandler(data){
 
 
 //listen for outside click
-//window.addEventListener('click',clickOutside)
+
 
 function closeModal(){
     const modalContainer = document.getElementsByClassName('modal-container')[0];
@@ -112,9 +112,12 @@ function closeModal(){
 }
 
 //function to close modal if outside click
-function clickOutside(e){
-    if(e.target == modalContainer){
-        modalContainer.remove();
-        
-    }
-}
+    window.addEventListener('click', () =>{
+        const modalContainer = document.getElementsByClassName('modal-container')[0];
+
+        if(event.target == modalContainer){
+            modalContainer.remove();
+        }
+    });
+     
+
