@@ -12,22 +12,18 @@ function fetchData(url) {
             .then(res => res.json() )
           //  .catch(error => console.log('Looks like there was a problem', error))
   }
-  //currently not working
+  
 fetchData('https://randomuser.me/api/?results=12&nat=us')
-    .then(data => {
-        generateCard(data.results);
-        modalClickHandler(data.results);
+    .then(data => { generateCard(data.results);
+                    modalClickHandler(data.results);
     })
-    
-    
-    
-    
-
 
 
 // ------------------------------------------
 //  HELPER FUNCTIONS
 // ------------------------------------------
+
+//generate individual employee cards based on number on employees return from API
 
 function generateCard(data){
     let employees = data;
@@ -48,11 +44,11 @@ gallery.innerHTML = html;
 //console.log(data)
 
 }
+//function to create the model && what data to display
 function generateModal(data,i){
     const modal = document.createElement('div');
     modal.setAttribute('class','modal-container');
-    modal.innerHTML =  `
-     
+    modal.innerHTML =  ` 
         <div class="modal">
             <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
             <div class="modal-info-container">
@@ -69,40 +65,26 @@ function generateModal(data,i){
         </div>
     
     `;
-    
     return modal;
-    
 }
 
 
 
-// ------------------------------------------
-//  EVENT LISTENERS
-// ------------------------------------------
+/// append the info to the body && call the closeModal()
 
 function modalClickHandler(data){
-     const cards = document.querySelectorAll('.card');
-    
-    for(let i =0; i< cards.length; i++){
-         cards[i].addEventListener('click', () => {
-            body.appendChild(generateModal(data,i))
-            closeModal();
-            
-       }) 
-    }
-    
+    const cards = document.querySelectorAll('.card');
+   
+   for(let i =0; i< cards.length; i++){
+        cards[i].addEventListener('click', () => {
+           body.appendChild(generateModal(data,i))
+           closeModal();
+           
+      }) 
+   }
+   
 }
-
-
-
-//can also listen if generateModal function has been loaded
-//listen for close click
-
-
-
-//listen for outside click
-
-
+//function to close the model popUp
 function closeModal(){
     const modalContainer = document.getElementsByClassName('modal-container')[0];
     const closeBtn = document.getElementById("modal-close-btn");
@@ -111,7 +93,11 @@ function closeModal(){
     });
 }
 
-//function to close modal if outside click
+// ------------------------------------------
+//  EVENT LISTENERS
+// ------------------------------------------
+
+//event listener close modal if outside click
     window.addEventListener('click', () =>{
         const modalContainer = document.getElementsByClassName('modal-container')[0];
 
