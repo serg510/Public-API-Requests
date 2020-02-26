@@ -12,8 +12,8 @@ function fetchData(url) {
             .then(res => res.json() )
           //  .catch(error => console.log('Looks like there was a problem', error))
   }
-  //currently not working'https://randomuser.me/api/?results=12&nat=us'
-fetchData('https://fsjs-public-api-backup.herokuapp.com/api')
+  //currently not working
+fetchData('https://randomuser.me/api/?results=12&nat=us')
     .then(data => {
         generateCard(data.results);
         modalClickHandler(data.results);
@@ -86,32 +86,35 @@ function modalClickHandler(data){
     for(let i =0; i< cards.length; i++){
          cards[i].addEventListener('click', () => {
             body.appendChild(generateModal(data,i))
+            closeModal();
+            clickOutside();
        }) 
     }
     
 }
 
-const modalContainer = document.getElementsByClassName('modal-container')[0];
-const closeBtn = document.getElementById("modal-close-btn");
+
 
 //can also listen if generateModal function has been loaded
 //listen for close click
 
-closeBtn.addEventListener('click',closeModal);
+
 
 //listen for outside click
 //window.addEventListener('click',clickOutside)
 
 function closeModal(){
-    modalContainer.remove();
-    console.log('click')
-    //modalContainer.style.display = 'none';
+    const modalContainer = document.getElementsByClassName('modal-container')[0];
+    const closeBtn = document.getElementById("modal-close-btn");
+    closeBtn.addEventListener('click', () =>{
+        modalContainer.remove();
+    });
 }
 
-// //function to close modal if outside click
-// function clickOutside(e){
-//     if(e.target == modalContainer){
-//         modalContainer.remove();
-//         //modalContainer.style.display = 'none';
-//     }
-// }
+//function to close modal if outside click
+function clickOutside(e){
+    if(e.target == modalContainer){
+        modalContainer.remove();
+        
+    }
+}
