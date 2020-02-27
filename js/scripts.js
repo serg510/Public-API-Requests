@@ -8,9 +8,9 @@ const body = document.getElementsByTagName('body')[0];
 // one fetch-function for multiple fetches
 function fetchData(url) {
     return fetch(url)
-          //  .then(checkStatus)
-            .then(res => res.json() )
-          //  .catch(error => console.log('Looks like there was a problem', error))
+           .then(checkStatus)
+           .then(res => res.json() )
+           .catch(error => console.log('Looks like there was a problem', error))
   }
   
 fetchData('https://randomuser.me/api/?results=12&nat=us')
@@ -24,6 +24,16 @@ fetchData('https://randomuser.me/api/?results=12&nat=us')
 //  HELPER FUNCTIONS
 // ------------------------------------------
 
+// function to check for errors
+
+function checkStatus(response){
+    if(response.ok){
+        return Promise.resolve(response);
+     }else{
+         return Promise.reject(new Error(response.statusText));
+     }
+
+}
 //creates filter & appends it to the page
 function generateFilter(){
     const searchContainer = document.getElementsByClassName("search-container")[0];
