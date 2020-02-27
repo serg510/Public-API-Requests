@@ -115,7 +115,6 @@ function generateModal(data,i){
 }
 
 
-
 /// append the info to the body && call the closeModal()
 
 function modalClickHandler(data){
