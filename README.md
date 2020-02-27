@@ -12,3 +12,6 @@ I’ll request a JSON object from the API and parse the data so that 12 employee
 
 ---need to add the prev & next function
 
+---***Search Function not working***---
+
+---***prev and next buttons not working***---
