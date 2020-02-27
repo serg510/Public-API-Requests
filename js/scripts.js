@@ -16,6 +16,7 @@ function fetchData(url) {
 fetchData('https://randomuser.me/api/?results=12&nat=us')
     .then(data => { generateCard(data.results);
                     modalClickHandler(data.results);
+                    generateFilter();
     })
 
 
@@ -23,8 +24,37 @@ fetchData('https://randomuser.me/api/?results=12&nat=us')
 //  HELPER FUNCTIONS
 // ------------------------------------------
 
-//generate individual employee cards based on number on employees return from API
+//creates filter & appends it to the page
+function generateFilter(){
+    const searchContainer = document.getElementsByClassName("search-container")[0];
+    const searchInput =document.createElement('div');
+    searchInput.innerHTML = `
+        <form action="#" method="get">
+            <input type="search" id="search-input" class="search-input" placeholder="Search...">
+            <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
+        </form>`;
+searchContainer.appendChild(searchInput);
+}
+// filter through results **---not working---***
+function searchFilter(){
+    const inputSearch = document.querySelector('#search-input');
+    const inputResults = inputSearch.value.toUpperCase();
+    const submit = document.querySelector('#search-submit');
+    const galleryDiv = document.getElementById('gallery');
+    const card = document.getElementsByClassName('.card')
+    console.log(inputSearch)
+    for(let i =0; i < card.length; i++){      //<-----W3schools.com
+      let h3 = card[i].getElementsByTagName('h3')[0];
+      let  txtValue = h3.textContent || a.innerText;
+      if(txtValue.toUpperCase().indexOf(inputResults) > -1){
+          card[i].style.display = '';
+      }else{
+        card[i].style.display = 'none'; 
+      }
+    }
+}
 
+//generate individual employee cards based on number on employees return from API
 function generateCard(data){
     let employees = data;
     const html= employees.map( (data) => {
@@ -41,6 +71,7 @@ function generateCard(data){
     </div>
 </div>`}).join('');
 gallery.innerHTML = html;
+
 //console.log(data)
 
 }
